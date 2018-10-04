@@ -63,14 +63,30 @@ public class UsersController : ApiController
 
         bool sucess = false;
 
-        if (email != null || email != "" || displayName != null || displayName != "" || password != null || password != "")
+        if(!IsValidEmail(email))
+            return BadRequest("Not valid email.");
+
+        if(displayName != null || displayName != "" || password != null || password != "")
             sucess = UserContext.Register(email, password, displayName);
         else
-            return BadRequest("please fill in all fields.");
+            return BadRequest("Please fill in all fields.");
 
         return Ok(new
         {
             Sucess = sucess
         });
+    }
+
+    bool IsValidEmail(string email)
+    {
+        try
+        {
+            var addr = new System.Net.Mail.MailAddress(email);
+            return addr.Address == email;
+        }
+        catch
+        {
+            return false;
+        }
     }
 }

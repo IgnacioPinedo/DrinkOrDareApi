@@ -138,17 +138,24 @@ public class UserContext : DbContext
         return sessionToken;
     }
 
+    public bool Authenticate(string userKey)
+    {
+        if(UserSession.Where(w => w.SessionToken == userKey).Count() > 0)
+            return true;
+        return false;
+    }
+
     private string GenerateSessionToken()
     {
         string date = DateTime.Now.ToString();
 
         StringBuilder Sb = new StringBuilder();
-        
+
         using (SHA256 hash = SHA256Managed.Create())
         {
             Encoding enc = Encoding.UTF8;
             Byte[] result = hash.ComputeHash(enc.GetBytes(date));
-        
+
             foreach (Byte b in result)
                 Sb.Append(b.ToString("x2"));
         }
