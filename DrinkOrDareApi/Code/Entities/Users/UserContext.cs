@@ -14,7 +14,6 @@ public class UserContext : DbContext
     }
 
     public DbSet<User> User { get; set; }
-    public DbSet<UserTemp> UserTemp { get; set; }
     public DbSet<UserSession> UserSession { get; set; }
 
     public bool Register(string email, string password, string displayName)
@@ -44,7 +43,8 @@ public class UserContext : DbContext
                 Email = email,
                 DisplayName = displayName,
                 Password = hashedPassword,
-                Salt = base64Salt
+                Salt = base64Salt,
+                IsUser = true
             };
 
             User.Add(newUser);
@@ -55,7 +55,20 @@ public class UserContext : DbContext
         }
     }
 
-    public BaseUser Login(string email, string password)
+    public User Get(string sessionToken)
+    {
+        var session = UserSession.Where(w => w.SessionToken == sessionToken).FirstOrDefault();
+        User user = User.Where(w => w.Id == session.UserId).FirstOrDefault();
+        return user;
+    }
+
+    public User Get(int id)
+    {
+        User user = User.Where(w => w.Id == id).FirstOrDefault();
+        return user;
+    }
+
+    public User Login(string email, string password)
     {
         try
         {
@@ -76,14 +89,7 @@ public class UserContext : DbContext
                     return null;
             }
 
-            BaseUser baseUser = new BaseUser
-            {
-                Id = user.Id,
-                IsUser = true,
-                DisplayName = user.DisplayName
-            };
-
-            return baseUser;
+            return user;
         }
         catch(Exception e)
         {
@@ -91,26 +97,21 @@ public class UserContext : DbContext
         }
     }
 
-    public BaseUser TempLogin(string displayName)
+    public User TempLogin(string displayName)
     {
-        UserTemp newTempUser = new UserTemp
+        User newTempUser = new User
         {
             DisplayName = displayName,
-            ExpireDate = DateTime.Now
+            ExpireDate = DateTime.Now,
+            IsUser = false
         };
 
-        UserTemp.Add(newTempUser);
+        User.Add(newTempUser);
 
         SaveChanges();
 
-        BaseUser baseUser = new BaseUser
-        {
-            Id = newTempUser.Id,
-            IsUser = false,
-            DisplayName = displayName
-        };
-
-        return baseUser;
+        return User = new User
+;
     }
 
     public string IniciateUserSession(int userId, bool isUser)

@@ -14,4 +14,6 @@ public class User
     public string Password { get; set; }
     public string Salt { get; set; }
     public string DisplayName { get; set; }
+    public bool IsUser { get; set; }
+    public DateTime ExpireDate { get; set; }
 }

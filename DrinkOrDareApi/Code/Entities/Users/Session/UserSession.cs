@@ -10,7 +10,6 @@ public class UserSession
 {
     [Key]
     public int Id { get; private set; }
-    public bool IsUser { get; set; }
     public int UserId { get; set; }
     public string SessionToken { get; set; }
     public DateTime ExpireDate { get; set; }

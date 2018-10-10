@@ -10,6 +10,62 @@ public class UsersController : ApiController
 {
     private UserContext UserContext = new UserContext();
 
+    [HttpGet]
+    [Route("Users")]
+    public IHttpActionResult Get()
+    {
+        string userKey = this.Request.Headers.GetValues("uk").FirstOrDefault();
+        bool auth = false;
+        User user;
+
+        using (UserContext userContext = new UserContext())
+        {
+            auth = userContext.Authenticate(userKey);
+        }
+
+        if (auth)
+        {
+            user = UserContext.Get(userKey);
+
+            return Ok(new
+            {
+                user.Id,
+                user.DisplayName,
+                user.IsUser
+            });
+        }
+
+        return Ok("Unauthorized");
+    }
+
+    [HttpGet]
+    [Route("Users")]
+    public IHttpActionResult Get(int id)
+    {
+        string userKey = this.Request.Headers.GetValues("uk").FirstOrDefault();
+        bool auth = false;
+        User user;
+
+        using (UserContext userContext = new UserContext())
+        {
+            auth = userContext.Authenticate(userKey);
+        }
+
+        if (auth)
+        {
+            user = UserContext.Get(userKey);
+
+            return Ok(new
+            {
+                user.Id,
+                user.DisplayName,
+                user.IsUser
+            });
+        }
+
+        return Ok("Unauthorized");
+    }
+
     [HttpPost]
     [Route("Users/Login")]
     public IHttpActionResult Login(JObject json)
@@ -29,7 +85,8 @@ public class UsersController : ApiController
                 User = new
                 {
                     user.Id,
-                    user.DisplayName
+                    user.DisplayName,
+                    user.IsUser
                 }
             });
         }
