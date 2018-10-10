@@ -133,10 +133,28 @@ public class UsersController : ApiController
         else
             return BadRequest("Please fill in all fields.");
 
-        return Ok(new
+        if(sucess)
         {
-            Sucess = sucess
-        });
+            var user = UserContext.Login(email, password);
+            var sessionToken = UserContext.IniciateUserSession(user.Id, user.IsUser);
+
+            return Ok(new
+            {
+                Sucess = sucess,
+                SessionToken = sessionToken,
+                User = new
+                {
+                    user.Id,
+                    user.DisplayName,
+                    user.IsUser
+                }
+            });
+        }
+        else
+            return Ok(new
+            {
+                Sucess = sucess
+            });
     }
 
     bool IsValidEmail(string email)
