@@ -102,9 +102,7 @@
     <Compile Include="Code\Entities\Dare\DaresController.cs" />
     <Compile Include="Code\Entities\Dare\DareContext.cs" />
     <Compile Include="Code\Entities\Dare\Dare.cs" />
-    <Compile Include="Code\Entities\Users\BaseUser.cs" />
     <Compile Include="Code\Entities\Users\Session\UserSession.cs" />
-    <Compile Include="Code\Entities\Users\Temp\UserTemp.cs" />
     <Compile Include="Code\Entities\Users\User.cs" />
     <Compile Include="Code\Entities\Users\UserContext.cs" />
     <Compile Include="Code\Entities\Users\UsersController.cs" />
