@@ -6,5 +6,6 @@ using System.Web;
 public class BaseUser
 {
     public int Id { get; set; }
-    public bool IsUser {get;set;}
+    public bool IsUser { get; set; }
+    public string DisplayName { get; set; }
 }

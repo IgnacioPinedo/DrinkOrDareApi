@@ -25,7 +25,12 @@ public class UsersController : ApiController
 
             return Ok(new
             {
-                SessionToken = sessionToken
+                SessionToken = sessionToken,
+                User = new
+                {
+                    user.Id,
+                    user.DisplayName
+                }
             });
         }
         else

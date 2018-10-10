@@ -79,7 +79,8 @@ public class UserContext : DbContext
             BaseUser baseUser = new BaseUser
             {
                 Id = user.Id,
-                IsUser = true
+                IsUser = true,
+                DisplayName = user.DisplayName
             };
 
             return baseUser;
@@ -105,7 +106,8 @@ public class UserContext : DbContext
         BaseUser baseUser = new BaseUser
         {
             Id = newTempUser.Id,
-            IsUser = false
+            IsUser = false,
+            DisplayName = displayName
         };
 
         return baseUser;
