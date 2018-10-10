@@ -39,7 +39,7 @@ public class UsersController : ApiController
     }
 
     [HttpGet]
-    [Route("Users")]
+    [Route("Users({id})")]
     public IHttpActionResult Get(int id)
     {
         string userKey = this.Request.Headers.GetValues("uk").FirstOrDefault();
@@ -53,7 +53,7 @@ public class UsersController : ApiController
 
         if (auth)
         {
-            user = UserContext.Get(userKey);
+            user = UserContext.Get(id);
 
             return Ok(new
             {

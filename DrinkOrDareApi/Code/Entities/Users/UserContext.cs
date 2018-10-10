@@ -110,13 +110,13 @@ public class UserContext : DbContext
 
         SaveChanges();
 
-        return User = new User
+        return newTempUser;
 ;
     }
 
     public string IniciateUserSession(int userId, bool isUser)
     {
-        var session = UserSession.Where(w => w.UserId == userId && w.IsUser == isUser).FirstOrDefault();
+        var session = UserSession.Where(w => w.UserId == userId).FirstOrDefault();
         string sessionToken;
 
         if (session == null)
@@ -125,7 +125,6 @@ public class UserContext : DbContext
 
             UserSession newUserSession = new UserSession
             {
-                IsUser = isUser,
                 UserId = userId,
                 SessionToken = sessionToken,
                 ExpireDate = DateTime.Now

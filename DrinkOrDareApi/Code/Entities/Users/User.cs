@@ -15,5 +15,5 @@ public class User
     public string Salt { get; set; }
     public string DisplayName { get; set; }
     public bool IsUser { get; set; }
-    public DateTime ExpireDate { get; set; }
+    public DateTime? ExpireDate { get; set; }
 }
