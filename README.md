@@ -2,11 +2,7 @@
 
 Criação de uma API para um projeto da faculdade. O projeto consiste em um site para jogar verdade ou desafio, porém com uma virada, essa virada seria que na realidade o jogo seria beba ou desafio.
 
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Pré-requisitos
+## Pré-requisitos
 
 Para fazer funcionar você precisa de ambiente de desenvolvimento de API (recomendo o Postman).
 
